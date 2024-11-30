@@ -13,6 +13,8 @@ namespace Blog
         {
             using (var context = new BlogDataContext())
             {
+                Console.Clear();
+
                 // CREATE
                 // var tag = new Tag { Name = ".NET", Slug = "dotnet" };
                 // context.Tags.Add(tag);
@@ -34,16 +36,23 @@ namespace Blog
                 // context.Remove(tag);
                 // context.SaveChanges();
 
-                var tags = context
-                        .Tags
-                        .AsNoTracking() // faz com que nao traga os METADADOS, traz ganho de performance nao recomendado para Delete ou Update
-                        .Where(x => x.Name.Contains(".net"))
-                        .ToList(); //boa pratica deixar list para final pois n pesquisara todo conteudo da base.
+                // var tags = context
+                //         .Tags
+                //         .AsNoTracking() // faz com que nao traga os METADADOS, traz ganho de performance nao recomendado para Delete ou Update
+                //         .Where(x => x.Name.Contains(".net"))
+                //         .ToList(); //boa pratica deixar list para final pois n pesquisara todo conteudo da base.
 
-                foreach (var tag in tags)
-                {
-                    System.Console.WriteLine($"{tag.Name}");
-                }
+                // foreach (var tag in tags)
+                // {
+                //     System.Console.WriteLine($"{tag.Name}");
+                // }
+
+                var tag = context
+                            .Tags
+                            .AsNoTracking()
+                            .FirstOrDefault(x => x.Id == 4);
+
+                System.Console.WriteLine(tag?.Name);
 
             }
         }
