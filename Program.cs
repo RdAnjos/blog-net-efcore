@@ -11,10 +11,44 @@ namespace Blog
     {
         static void Main(string[] args)
         {
+            Console.Clear();
+
+            using var context = new BlogDataContext();
+
+            var user = new User
+            {
+                Name = "Rodrigo",
+                Bio = "Backend Developer",
+                Email = "rodrigo@email.com",
+                Image = "http:\\www.images.com",
+                Slug = "anjosrodrigo",
+                PasswordHash = "123456"
+            };
+            var category = new Category
+            {
+                Name = "Backend",
+                Slug = "backend"
+            };
+
+            var post = new Post
+            {
+                Author = user,
+                Category = category,
+                Body = "<b>Title</b>",
+                Slug = "starting-with-efcore",
+                Summary = "In this article we will learn about EF Core",
+                Title = "Starting with Entity Framework Core",
+                CreateDate = DateTime.Now,
+                LastUpdateDate = DateTime.Now
+            };
+
+            context.Posts.Add(post);
+            context.SaveChanges();
+
+            /*
             using (var context = new BlogDataContext())
             {
                 Console.Clear();
-
                 // CREATE
                 // var tag = new Tag { Name = ".NET", Slug = "dotnet" };
                 // context.Tags.Add(tag);
@@ -47,14 +81,15 @@ namespace Blog
                 //     System.Console.WriteLine($"{tag.Name}");
                 // }
 
-                var tag = context
-                            .Tags
-                            .AsNoTracking()
-                            .FirstOrDefault(x => x.Id == 4);
+                // var tag = context
+                //             .Tags
+                //             .AsNoTracking()
+                //             .FirstOrDefault(x => x.Id == 4);
 
-                System.Console.WriteLine(tag?.Name);
+                // System.Console.WriteLine(tag?.Name);
 
             }
+            */
         }
     }
 }
