@@ -15,35 +15,49 @@ namespace Blog
 
             using var context = new BlogDataContext();
 
-            var user = new User
-            {
-                Name = "Rodrigo",
-                Bio = "Backend Developer",
-                Email = "rodrigo@email.com",
-                Image = "http:\\www.images.com",
-                Slug = "anjosrodrigo",
-                PasswordHash = "123456"
-            };
-            var category = new Category
-            {
-                Name = "Backend",
-                Slug = "backend"
-            };
+            var posts = context
+                .Posts
+                .AsNoTracking()
+                .Include(x => x.Author) //faz com que traga o resultado do meu author, faz um inner na tabela.
+                                        //.Where(x => x.AuthorId == 1)
+                .OrderByDescending(x => x.LastUpdateDate)
+                .ToList();
 
-            var post = new Post
+            foreach (var post in posts)
             {
-                Author = user,
-                Category = category,
-                Body = "<b>Title</b>",
-                Slug = "starting-with-efcore",
-                Summary = "In this article we will learn about EF Core",
-                Title = "Starting with Entity Framework Core",
-                CreateDate = DateTime.Now,
-                LastUpdateDate = DateTime.Now
-            };
+                System.Console.WriteLine($"Id: {post.Id}, Title: {post.Title} escrito por {post.Author?.Name}");
+            }
 
-            context.Posts.Add(post);
-            context.SaveChanges();
+
+            // var user = new User
+            // {
+            //     Name = "Rodrigo",
+            //     Bio = "Backend Developer",
+            //     Email = "rodrigo@email.com",
+            //     Image = "http:\\www.images.com",
+            //     Slug = "anjosrodrigo",
+            //     PasswordHash = "123456"
+            // };
+            // var category = new Category
+            // {
+            //     Name = "Backend",
+            //     Slug = "backend"
+            // };
+
+            // var post = new Post
+            // {
+            //     Author = user,
+            //     Category = category,
+            //     Body = "<b>Title</b>",
+            //     Slug = "starting-with-efcore",
+            //     Summary = "In this article we will learn about EF Core",
+            //     Title = "Starting with Entity Framework Core",
+            //     CreateDate = DateTime.Now,
+            //     LastUpdateDate = DateTime.Now
+            // };
+
+            // context.Posts.Add(post);
+            // context.SaveChanges();
 
             /*
             using (var context = new BlogDataContext())
