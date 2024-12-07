@@ -10,7 +10,7 @@ namespace Blog.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlServer("Server=localhost,1433; Database=Blog-efcore;TrustServerCertificate=true;User ID=sa; Password= @Password24#");
-            options.LogTo(Console.WriteLine);
+            //options.LogTo(Console.WriteLine);
         }
     }
 }
