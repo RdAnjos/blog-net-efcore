@@ -1,16 +1,10 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Models
 {
-    [Table("Post")]
     public class Post
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Body { get; set; }
@@ -18,16 +12,10 @@ namespace Blog.Models
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
 
-        #region Category Id
-        [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
-        #endregion
 
-        #region Author Id
-        [ForeignKey("AuthorId")]
+        public int CategoryId { get; set; }
+
         public int AuthorId { get; set; }
-        public User Author { get; set; }
-        #endregion
+
     }
 }
